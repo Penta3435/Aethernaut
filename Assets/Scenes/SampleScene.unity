@@ -422,8 +422,8 @@ MonoBehaviour:
   layersDontCoverCamera:
     serializedVersion: 2
     m_Bits: 1
-  yAngle: 0
-  xAngle: 0
+  yAngle: -90
+  xAngle: 50
 --- !u!1001 &375730730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2669,7 +2669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportLocation: {x: 0, y: 0, z: 0}
   playerYRotation: 180
-  cameraRotation: {x: -45, y: -90}
+  cameraRotation: {x: 45, y: 270}
 --- !u!1 &1827737217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3289,7 +3289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportLocation: {x: 60, y: 0, z: -65}
   playerYRotation: -90
-  cameraRotation: {x: -30, y: 180}
+  cameraRotation: {x: 30, y: 0}
 --- !u!65 &2144184138
 BoxCollider:
   m_ObjectHideFlags: 0
