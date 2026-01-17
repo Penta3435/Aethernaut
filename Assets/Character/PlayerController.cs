@@ -141,4 +141,9 @@ public class PlayerController : MonoBehaviour
         settingPos = true;
         posToSet = pos;
     }
+
+    public void ReproduceAudioWhenGrounded(AudioClip audioClip)
+    {
+        if (cc.isGrounded)SFXManager.instance.ReproduceAudioClip(audioClip);
+    }
 }

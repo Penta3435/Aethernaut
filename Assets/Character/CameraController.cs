@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
         transform.LookAt(cameraFocusPoint);
 
         RaycastHit hit;
-        if(Physics.Linecast(target.position,transform.position,out hit, layersDontCoverCamera))
+        if(Physics.Linecast(target.position + new Vector3(0,verticalOffset,0),transform.position,out hit, layersDontCoverCamera))
         {
             transform.position = hit.point;
         }
