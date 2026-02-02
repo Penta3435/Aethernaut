@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 45a3b8eb89aeccc48b579218436bc68c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 350b79d7e58923b468466829ba342efa, type: 2}
+      objectReference: {fileID: 2100000, guid: 7e8926906ad70184782f7a068ad6be31, type: 2}
     - target: {fileID: 919132149155446097, guid: 45a3b8eb89aeccc48b579218436bc68c, type: 3}
       propertyPath: m_Name
       value: uv_engranaje_substance
