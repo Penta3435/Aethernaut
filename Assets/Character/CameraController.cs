@@ -14,8 +14,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] float bottomMaxAngle = 89;
     [SerializeField] LayerMask layersDontCoverCamera;
 
-    public float yAngle = 0;
     public float xAngle = 0;
+    public float yAngle = 0;
     void Update()
     {
         //get mouse x y value
@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
         }
         
 
-        //convert angles to position
+        //convert stateAngles to position
         var y = Mathf.Sin(Mathf.Deg2Rad * xAngle);      //get heigh
         var r = Mathf.Sqrt(1 - Mathf.Pow(y,2));         //get the radius of the circle cuthed from "1radius sphere" in "y height" (r^2 + y^2 = 1^2) "1" is "1 radius sphere´s" radius, y is heigh
         var x = Mathf.Cos(Mathf.Deg2Rad * yAngle) * r;

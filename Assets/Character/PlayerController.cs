@@ -1,9 +1,10 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float runSpeed = 5;
+    [SerializeField] float turnSpeed = 10;
     [SerializeField] float jumpSpeed = 10;
     [SerializeField] float fallSpeed = 10;
     [SerializeField] float jumpTime = 0.5f;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     Vector3 cameraRight;
 
     Vector3 runDir;
+    bool canRunJump = true;
 
     Vector3 posToSet;
 
@@ -48,22 +50,22 @@ public class PlayerController : MonoBehaviour
         running = false;
 
         //calc runDir and run logic
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && canRunJump)
         {
             runDir += cameraForward;
             running = true;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) && canRunJump)
         {
             runDir -= cameraForward;
             running = true;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && canRunJump)
         {
             runDir += cameraRight;
             running = true;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) && canRunJump)
         {
             runDir -= cameraRight;
             running = true;
@@ -71,23 +73,25 @@ public class PlayerController : MonoBehaviour
         runDir.Normalize();
         if (running && cc.enabled)
         {
-            if (runDir != Vector3.zero)
-                transform.forward = runDir.normalized;
-
+            if (runDir != Vector3.zero) 
+            { 
+                //transform.forward = runDir.normalized;
+                transform.forward = Vector3.Lerp(transform.forward+new Vector3(0.01f,0,0), runDir.normalized, Time.deltaTime * turnSpeed);
+            }
             cc.Move(transform.forward * runSpeed *  Time.deltaTime);
         }
         animator.SetBool(runId, running);
 
 
         //gravity
-        if (cc.enabled) cc.Move(Vector3.down * fallSpeed *  Time.deltaTime);
-
+        if (cc.enabled && !cc.isGrounded) cc.Move(Vector3.down * fallSpeed * Time.deltaTime);
 
         //jumpLogic
-        if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded && cc.enabled) 
+        if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded && cc.enabled && canRunJump) 
         {
             animator.SetTrigger(jumpId);
             jumpTimer = jumpTime;
+            canRunJump = false;
         }
         if (jumping && cc.enabled)
         {
@@ -97,16 +101,17 @@ public class PlayerController : MonoBehaviour
             if (jumpTimer <= 0) jumping = false;
         }
 
+
         //Change position
         if (settingPos) 
-        { 
+        {
             transform.position = posToSet;
             settingPos = false;
             cc.enabled = true;
         }
 
 
-        //Interact
+        //CubePuzzleInteract
         Collider[] hit = Physics.OverlapSphere(transform.position + Vector3.up, 2, interactablesLayerMask);
         Collider closestHit = null;
         if (hit.Length > 0)
@@ -130,9 +135,15 @@ public class PlayerController : MonoBehaviour
             } 
         }
     }
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        this.transform.parent = null;
+        if (hit.transform.CompareTag("MovingPlatform")) transform.parent = hit.transform;
+    }
     public void Jump()
     {
         jumping = true;
+        canRunJump = true;
     }
 
     public void SetPosition(Vector3 pos)
