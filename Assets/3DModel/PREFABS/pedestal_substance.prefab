@@ -184,7 +184,7 @@ PrefabInstance:
     - target: {fileID: -2899648227801171368, guid: fdeb095b9435f0842ac5ef893791ad7a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 5b20a6fa726cc1f498dc012891330b1f, type: 2}
+      objectReference: {fileID: 2100000, guid: 8234fe4788b9e5e4f898b9a3e80986e5, type: 2}
     - target: {fileID: 919132149155446097, guid: fdeb095b9435f0842ac5ef893791ad7a, type: 3}
       propertyPath: m_Name
       value: pedestal_substance

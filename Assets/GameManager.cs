@@ -1,13 +1,23 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+    [SerializeField] GameObject[] enableWhenStartGame;
+    [SerializeField] GameObject[] disabeWhenStartGame;
 
-    // Update is called once per frame
+    int cristalVaporCount;
+    int fragVaporCount;
+
+    public static GameManager instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else Destroy(this);
+    }
     void Update()
     {
         if(Input.GetKeyUp(KeyCode.LeftAlt)|| Input.GetKeyUp(KeyCode.RightAlt))
@@ -18,5 +28,27 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+    public void StartGame()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        foreach (var i in enableWhenStartGame)
+        {
+            i.SetActive(true);
+        }
+        foreach (var i in disabeWhenStartGame)
+        {
+            i.SetActive(false);
+        }
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void AddOneCristalVaport()
+    {
+        cristalVaporCount++;
+        UiManager.instance.SetCristalVapor(cristalVaporCount);
     }
 }

@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 148775963186018044, guid: 53ea87c742ed8c245834b6e479b7f59c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2a08e926b40473043b954bfc2b810090, type: 2}
+      objectReference: {fileID: 2100000, guid: 104d1e775fac56b4a86a037a68909654, type: 2}
     - target: {fileID: 919132149155446097, guid: 53ea87c742ed8c245834b6e479b7f59c, type: 3}
       propertyPath: m_Name
       value: Seta2

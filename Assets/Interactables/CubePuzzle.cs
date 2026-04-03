@@ -36,6 +36,7 @@ public class CubePuzzle : MonoBehaviour
     }
     public void CubePuzzleInteract()
     {
+        if (puzzleMain != null && puzzleMain.onAnimation) return;
         NextState();
         foreach (CubePuzzle cube in otherCubesToSpinWith)
         {
@@ -44,7 +45,6 @@ public class CubePuzzle : MonoBehaviour
     }
     public void NextState()
     {
-        print(gameObject.name);
         if (changeState == false)
         {
             changeState = true;

@@ -1,8 +1,13 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] float totalHp = 100;
+
     [SerializeField] float runSpeed = 5;
     [SerializeField] float turnSpeed = 10;
     [SerializeField] float jumpSpeed = 10;
@@ -11,6 +16,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Animator animator;
     [SerializeField] CharacterController cc;
+    [SerializeField] Volume volume;
+    Vignette vignette;
+
+
+    float currentHp;
 
     int runId;
     int jumpId;
@@ -32,9 +42,11 @@ public class PlayerController : MonoBehaviour
     LayerMask interactablesLayerMask;
     private void Start()
     {
+        currentHp = totalHp;
         interactablesLayerMask = LayerMask.GetMask("Interactables");
         runId = Animator.StringToHash("Running");
         jumpId = Animator.StringToHash("Jump");
+        volume.profile.TryGet(out vignette);
     }
     void Update()
     {
@@ -111,7 +123,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //CubePuzzleInteract
+        //Interact
         Collider[] hit = Physics.OverlapSphere(transform.position + Vector3.up, 2, interactablesLayerMask);
         Collider closestHit = null;
         if (hit.Length > 0)
@@ -131,7 +143,7 @@ public class PlayerController : MonoBehaviour
             closestHitIInteractables.Focused = true;
             if (Input.GetKeyDown(KeyCode.F))
             {
-                closestHitIInteractables.Interact();
+                closestHitIInteractables.Interact(this);
             } 
         }
     }
@@ -156,5 +168,26 @@ public class PlayerController : MonoBehaviour
     public void ReproduceAudioWhenGrounded(AudioClip audioClip)
     {
         if (cc.isGrounded)SFXManager.instance.ReproduceAudioClip(audioClip);
+    }
+    public void Damage(float damage)
+    {
+        StartCoroutine("DamageVignette");
+        currentHp -= damage;
+        UiManager.instance.SetHpBar(currentHp / totalHp);
+        CheckAlive();
+    }
+    public void CheckAlive()
+    {
+        if (currentHp <= 0)
+            GameManager.instance.RestartGame();
+    }
+    IEnumerator DamageVignette()
+    {
+        for (float i = 0; i < 1; i+=Time.deltaTime*2) 
+        {
+            print(Mathf.Sin(i * Mathf.PI) / 2);
+            vignette.intensity.value = Mathf.Sin(i*Mathf.PI)/2;
+            yield return null;
+        }
     }
 }

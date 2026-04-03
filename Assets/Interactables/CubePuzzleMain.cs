@@ -7,6 +7,7 @@ public class CubePuzzleMain : MonoBehaviour
     [SerializeField] float animDuration = 1f;
 
     public UnityEvent OnInteract;
+    [HideInInspector] public bool onAnimation = false;
     [SerializeField] private Animator animator;
     [SerializeField] string animationStateName;
 
@@ -21,10 +22,12 @@ public class CubePuzzleMain : MonoBehaviour
     }
     public void CheckSolvedAfterAnim()
     {
+        onAnimation = true;
         Invoke("CheckSolved", animDuration + 0.05f);
     }
     void CheckSolved()
     {
+        onAnimation = false;
         if (solved) return;
 
         foreach (CubePuzzle cube in allCubes)

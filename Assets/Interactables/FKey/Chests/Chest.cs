@@ -19,7 +19,7 @@ public class Chest : MonoBehaviour, IInteractables
         Focused = false;
         playerTag = TagHandle.GetExistingTag("Player");
     }
-    void IInteractables.Interact()
+    void IInteractables.Interact(PlayerController playerController)
     {
         if (interactable)
         {
