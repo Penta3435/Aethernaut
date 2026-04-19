@@ -6,8 +6,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] enableWhenStartGame;
     [SerializeField] GameObject[] disabeWhenStartGame;
 
+    [SerializeField] GameObject[] disableWhenFinishGame;
+
+    [SerializeField] Animator lastAnimationAnimator;
+    [SerializeField] string lasAnimationStateName = "FinalAnim";
+
     int cristalVaporCount;
-    int fragVaporCount;
+    int fragVaporCount = 0;
 
     public static GameManager instance;
     private void Awake()
@@ -50,5 +55,21 @@ public class GameManager : MonoBehaviour
     {
         cristalVaporCount++;
         UiManager.instance.SetCristalVapor(cristalVaporCount);
+    }
+    public void AddOneFragVaport()
+    {
+        fragVaporCount++;
+        UiManager.instance.SetFragVapor(fragVaporCount);
+    }
+    public void CheckGameCompleted()
+    {
+        if(cristalVaporCount == 4)
+        {
+            foreach (var i in disableWhenFinishGame)
+            {
+                i.SetActive(false);
+            }
+            if (lastAnimationAnimator != null)lastAnimationAnimator.Play(lasAnimationStateName);
+        }
     }
 }
