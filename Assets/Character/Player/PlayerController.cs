@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -8,10 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float totalHp = 100;
 
-    [SerializeField] float runSpeed = 5;
+    [SerializeField] float walkSpeed = 5;
+    [SerializeField] float runSpeed = 11;
     [SerializeField] float turnSpeed = 10;
     [SerializeField] float jumpSpeed = 10;
-    [SerializeField] float fallSpeed = 10;
+    [SerializeField] float fallSpeed = 15;
     [SerializeField] float jumpTime = 0.5f;
 
     [SerializeField] Animator animator;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
     float currentHp;
 
     int runId;
+    int shiftRunId;
     int jumpId;
 
     Vector3 cameraForward;
@@ -45,6 +48,7 @@ public class PlayerController : MonoBehaviour
         currentHp = totalHp;
         interactablesLayerMask = LayerMask.GetMask("Interactables");
         runId = Animator.StringToHash("Running");
+        shiftRunId = Animator.StringToHash("ShiftRunning");
         jumpId = Animator.StringToHash("Jump");
         volume.profile.TryGet(out vignette);
     }
@@ -60,7 +64,7 @@ public class PlayerController : MonoBehaviour
         cameraRight.Normalize();
 
         running = false;
-
+        animator.SetBool(shiftRunId, false);
         //calc runDir and run logic
         if (Input.GetKey(KeyCode.W) && canRunJump)
         {
@@ -90,7 +94,14 @@ public class PlayerController : MonoBehaviour
                 //transform.forward = runDir.normalized;
                 transform.forward = Vector3.Lerp(transform.forward+new Vector3(0.01f,0,0), runDir.normalized, Time.deltaTime * turnSpeed);
             }
-            cc.Move(transform.forward * runSpeed *  Time.deltaTime);
+            if (Input.GetKey(KeyCode.LeftShift)) 
+            { 
+                cc.Move(transform.forward * runSpeed *  Time.deltaTime); 
+                animator.SetBool(shiftRunId, true);
+
+            }
+            else
+                cc.Move(transform.forward * walkSpeed *  Time.deltaTime);
         }
         animator.SetBool(runId, running);
 
@@ -167,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReproduceAudioWhenGrounded(AudioClip audioClip)
     {
-        if (cc.isGrounded)SFXManager.instance.ReproduceAudioClip(audioClip);
+        if (cc.isGrounded)SFXManager.instance.ReproduceAudioClip(audioClip, 0.2f);
     }
     public void Damage(float damage)
     {
