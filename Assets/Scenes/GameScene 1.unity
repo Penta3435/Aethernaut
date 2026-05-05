@@ -3873,6 +3873,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 1072143933}
     m_Modifications:
     - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Radius
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -28734,7 +28750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &860912856
 Transform:
   m_ObjectHideFlags: 0
@@ -34315,6 +34331,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 306029340}
     m_Modifications:
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Radius
+      value: 0.95203066
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0002132203
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Center.y
+      value: -0.0006820307
+      objectReference: {fileID: 0}
+    - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
+      propertyPath: m_Center.z
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 711655652519614170, guid: ec60bf631ac5b474693059478ad3645a, type: 3}
       propertyPath: m_IsTrigger
       value: 1

@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             if (runDir != Vector3.zero) 
             { 
                 //transform.forward = runDir.normalized;
-                transform.forward = Vector3.Lerp(transform.forward+new Vector3(0.01f,0,0), runDir.normalized, Time.deltaTime * turnSpeed);
+                transform.forward = Vector3.Lerp(transform.forward, runDir.normalized + new Vector3(0.01f,0,0), Time.deltaTime * turnSpeed);
             }
             if (Input.GetKey(KeyCode.LeftShift)) 
             { 
