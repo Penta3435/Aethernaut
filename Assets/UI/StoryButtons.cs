@@ -4,6 +4,7 @@ using UnityEngine.Video;
 public class StoryButtons : MonoBehaviour
 {
     [SerializeField] GameObject[] elementsToShow;
+    [SerializeField] GameObject[] elementsToDisable;
     [SerializeField] AudioListener audioListener;
     [SerializeField] VideoPlayer videoPlayer;
 
@@ -17,6 +18,10 @@ public class StoryButtons : MonoBehaviour
         {
             element.gameObject.SetActive(true);
         }
+        foreach (var element in elementsToDisable)
+        {
+            element.gameObject.SetActive(false);
+        }
         audioListener.enabled = false;
     }
     public void Skip(VideoPlayer videoPlayer)
@@ -24,6 +29,10 @@ public class StoryButtons : MonoBehaviour
         foreach (var element in elementsToShow)
         {
             element.gameObject.SetActive(false);
+        }
+        foreach (var element in elementsToDisable)
+        {
+            element.gameObject.SetActive(true);
         }
         audioListener.enabled = true;
     }

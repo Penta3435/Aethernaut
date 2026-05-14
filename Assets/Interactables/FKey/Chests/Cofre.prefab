@@ -582,6 +582,7 @@ MonoBehaviour:
         m_CallState: 2
   animator: {fileID: 7341935954217490832}
   FocusedIcon: {fileID: 6681320531687249129}
+  openSfx: {fileID: 8300000, guid: 131d3ecb44a5c0043833df140c538535, type: 3}
 --- !u!95 &7341935954217490832
 Animator:
   serializedVersion: 7

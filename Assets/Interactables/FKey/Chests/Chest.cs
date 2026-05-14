@@ -7,6 +7,7 @@ public class Chest : MonoBehaviour, IInteractables
     public UnityEvent OnOpen;
     [SerializeField] Animator animator;
     [SerializeField] GameObject FocusedIcon;
+    [SerializeField] AudioClip openSfx;
 
     public bool Focused { get; set; }
     bool interactable = true;
@@ -23,6 +24,7 @@ public class Chest : MonoBehaviour, IInteractables
     {
         if (interactable)
         {
+            SFXManager.instance.ReproduceAudioClip(openSfx);
             OnOpen.Invoke();
             interactable = false;
             animator.SetTrigger(openId);

@@ -8,6 +8,7 @@ public class TriggerInteract : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] string animationStateName;
     [SerializeField] bool infiniteInteracts = false;
+    [SerializeField] AudioClip audioOnInteract;
 
     TagHandle playerTag;
     private void Awake()
@@ -21,6 +22,8 @@ public class TriggerInteract : MonoBehaviour
         {
             OnInteract?.Invoke();
             if (animator != null) animator.Play(animationStateName);
+
+            if(audioOnInteract != null && SFXManager.instance != null)SFXManager.instance.ReproduceAudioClip(audioOnInteract);
 
             if (!infiniteInteracts)
             {
