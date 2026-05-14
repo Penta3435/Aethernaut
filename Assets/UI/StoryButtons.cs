@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -22,6 +23,11 @@ public class StoryButtons : MonoBehaviour
         {
             element.gameObject.SetActive(false);
         }
+        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        for (int index = 0; index < sources.Length; ++index)
+        {
+            sources[index].mute = true;
+        }
         audioListener.enabled = false;
     }
     public void Skip(VideoPlayer videoPlayer)
@@ -33,6 +39,12 @@ public class StoryButtons : MonoBehaviour
         foreach (var element in elementsToDisable)
         {
             element.gameObject.SetActive(true);
+        }
+
+        AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        for (int index = 0; index < sources.Length; ++index)
+        {
+            sources[index].mute = false;
         }
         audioListener.enabled = true;
     }
